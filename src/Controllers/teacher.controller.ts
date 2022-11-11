@@ -1,19 +1,19 @@
 import { Request, Response } from 'express'
 
 import { hashSaltRound } from '../Config/config'
-import { students } from '../Models'
-import { IStudent } from '../Types'
+import { teachers } from '../Models'
+import { ITeacher } from '../Types'
 
-const Student = students
+const Teacher = teachers
 
 const createAsync = async (req: Request, res: Response) => {
   try {
     console.log('student1')
-    const studentData: IStudent = req.body
-    console.log('student2', studentData)
+    const teacherData: ITeacher = req.body
+    console.log('student2', teacherData)
 
-    const newStudent = new Student(studentData)
-    const resData = await newStudent.save()
+    const newTeacher = new Teacher(teacherData)
+    const resData = await newTeacher.save()
     res.status(200).send({ result: resData.toJSON() })
   } catch (error) {
     console.error(error)
@@ -25,7 +25,7 @@ const getManyAsync = async (req: Request, res: Response) => {
   try {
     const query = req.query
     console.log(query)
-    const result = await Student.find(query)
+    const result = await Teacher.find(query)
     res.status(200).send({ result })
   } catch (error) {
     res.status(400).send({ message: error })
@@ -37,9 +37,9 @@ const getByIdAsync = async (req: Request, res: Response) => {
     const studentId = req.params.id
     console.log('get by id')
     if (!studentId) {
-      res.status(400).send({ message: 'Cần nhập vào id của Student!' })
+      res.status(400).send({ message: 'Cần nhập vào id của Teacher!' })
     }
-    const result = await Student.findById(studentId)
+    const result = await Teacher.findById(studentId)
     res.status(200).send({ result })
   } catch (error) {
     res.status(400).send({ message: error })
@@ -53,9 +53,9 @@ const updateByIdAsync = async (req: Request, res: Response) => {
     if (!id || !data) {
       res.status(400).send({ message: 'Please fill the id and data!' })
     }
-    const result = await Student.findByIdAndUpdate(id, data)
+    const result = await Teacher.findByIdAndUpdate(id, data)
     if (result) {
-      res.status(200).send({ message: 'Student updated' })
+      res.status(200).send({ message: 'Teacher updated' })
     } else {
       res.status(400).send({ error: 'Error when update student!' })
     }

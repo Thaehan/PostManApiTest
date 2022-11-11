@@ -2,10 +2,10 @@ import { Request, Response } from 'express'
 import { hash, compare } from 'bcrypt'
 
 import { hashSaltRound } from '../Config/config'
-import db from '../Models'
+import db, { accounts } from '../Models'
 import { IAccount } from '../Types'
 
-const Account = db.accounts
+const Account = accounts
 
 const createAsync = async (req: Request, res: Response) => {
   try {
@@ -53,6 +53,14 @@ const loginAsync = async (req: Request, res: Response) => {
 
 const findOneAsync = async (req: Request, res: Response) => {
   try {
+    const filter = req.body
+    const result = await Account.findOne(filter)
+    if (!result) {
+      res.status(404).send({ message: 'No match found!' })
+      return
+    } else {
+      res.status(200).send({ result })
+    }
   } catch (error) {
     res.status(400).send({ message: error })
   }
@@ -77,7 +85,7 @@ const getByIdAsync = async (req: Request, res: Response) => {
       res.status(400).send({ message: 'Cần nhập vào userId' })
     }
     const result = await Account.findById(userId)
-    res.send(result)
+    res.status(200).send({ result })
   } catch (error) {
     res.status(400).send({ message: error })
   }
@@ -91,7 +99,11 @@ const updateAsync = async (req: Request, res: Response) => {
       res.status(400).send({ message: 'Please fill the id and data!' })
     }
     const result = await Account.findByIdAndUpdate(id, data)
-    res.status(200).send({ message: 'Account updated' })
+    if (result) {
+      res.status(200).send({ message: 'Account updated' })
+    } else {
+      res.status(400).send({ message: 'Error when update account!' })
+    }
   } catch (error) {
     res.status(400).send({ message: error })
   }
