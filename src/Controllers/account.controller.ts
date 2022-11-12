@@ -14,6 +14,12 @@ const createAsync = async (req: Request, res: Response) => {
       return
     }
 
+    const existAccount = await Account.find({ username: username })
+    if (existAccount.length != 0) {
+      res.status(400).send({ message: 'Username is exist!' })
+      return
+    }
+
     const data: IAccount = {
       username: req.body.username,
       password: await hash(req.body.password, hashSaltRound),
@@ -32,15 +38,26 @@ const loginAsync = async (req: Request, res: Response) => {
   try {
     const { username, password } = req.query
 
-    console.log(username, password)
-
     if (username && password) {
-      const hashedPassword = await hash(password.toString(), hashSaltRound)
       const result = await Account.findOne({
         username,
-        password: hashedPassword,
       })
-      res.status(200).send(result)
+
+      if (result?.password) {
+        const isPasswordTrue = await compare(
+          password.toString(),
+          result?.password
+        )
+
+        if (isPasswordTrue) {
+          res.status(200).send({ result })
+        } else {
+          res.status(400).send({ message: 'Password is incorrect!' })
+        }
+      } else {
+        res.status(404).send({ message: 'Username is not exist!' })
+        return
+      }
     } else {
       res
         .status(400)
@@ -83,6 +100,7 @@ const getByIdAsync = async (req: Request, res: Response) => {
     console.log('get by id')
     if (!userId) {
       res.status(400).send({ message: 'Cần nhập vào userId' })
+      return
     }
     const result = await Account.findById(userId)
     res.status(200).send({ result })

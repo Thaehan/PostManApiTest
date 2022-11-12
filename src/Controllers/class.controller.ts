@@ -1,32 +1,27 @@
 import { Request, Response } from 'express'
 
 import { hashSaltRound } from '../Config/config'
-import { students } from '../Models'
-import { IStudent } from '../Types'
+import { classes } from '../Models'
+import { IClass } from '../Types'
 
-const Student = students
+const Class = classes
 
 const createAsync = async (req: Request, res: Response) => {
   try {
     console.log('student1')
-    const studentData: IStudent = req.body
-    console.log('student2', studentData)
+    const classData: IClass = req.body
+    console.log('classData ', classData)
 
-    const existStudent = await Student.find().or([
-      {
-        student_id: studentData.student_id,
-      },
-      { user_id: studentData.user_id },
-    ])
-    if (existStudent.length != 0) {
-      res.status(400).send({
-        message: 'Student Id is exist or user has a student account already!',
-      })
+    const existClass = await Class.find({
+      class_id: classData.class_id,
+    })
+    if (existClass.length != 0) {
+      res.status(400).send({ message: 'Class Id is exist!' })
       return
     }
 
-    const newStudent = new Student(studentData)
-    const resData = await newStudent.save()
+    const newClass = new Class(classData)
+    const resData = await newClass.save()
     res.status(200).send({ result: resData.toJSON() })
   } catch (error) {
     console.error(error)
@@ -38,7 +33,7 @@ const getManyAsync = async (req: Request, res: Response) => {
   try {
     const query = req.query
     console.log(query)
-    const result = await Student.find(query)
+    const result = await Class.find(query)
     res.status(200).send({ result })
   } catch (error) {
     res.status(400).send({ message: error })
@@ -50,10 +45,10 @@ const getByIdAsync = async (req: Request, res: Response) => {
     const studentId = req.params.id
     console.log('get by id')
     if (!studentId) {
-      res.status(400).send({ message: 'Cần nhập vào id của Student!' })
+      res.status(400).send({ message: 'Cần nhập vào id của Class!' })
       return
     }
-    const result = await Student.findById(studentId)
+    const result = await Class.findById(studentId)
     res.status(200).send({ result })
   } catch (error) {
     res.status(400).send({ message: error })
@@ -66,10 +61,11 @@ const updateByIdAsync = async (req: Request, res: Response) => {
     console.log('data', id, data)
     if (!id || !data) {
       res.status(400).send({ message: 'Please fill the id and data!' })
+      return
     }
-    const result = await Student.findByIdAndUpdate(id, data)
+    const result = await Class.findByIdAndUpdate(id, data)
     if (result) {
-      res.status(200).send({ message: 'Student updated' })
+      res.status(200).send({ message: 'Class updated' })
     } else {
       res.status(400).send({ error: 'Error when update student!' })
     }

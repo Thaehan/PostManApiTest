@@ -8,9 +8,21 @@ const Teacher = teachers
 
 const createAsync = async (req: Request, res: Response) => {
   try {
-    console.log('student1')
     const teacherData: ITeacher = req.body
-    console.log('student2', teacherData)
+    console.log('teacherData ', teacherData)
+
+    const existTeacher = await Teacher.find().or([
+      {
+        teacher_id: teacherData.teacher_id,
+      },
+      { user_id: teacherData.user_id },
+    ])
+    if (existTeacher.length != 0) {
+      res
+        .status(400)
+        .send({ message: 'Teacher is exist or user has a teacher account!' })
+      return
+    }
 
     const newTeacher = new Teacher(teacherData)
     const resData = await newTeacher.save()
@@ -38,6 +50,7 @@ const getByIdAsync = async (req: Request, res: Response) => {
     console.log('get by id')
     if (!studentId) {
       res.status(400).send({ message: 'Cần nhập vào id của Teacher!' })
+      return
     }
     const result = await Teacher.findById(studentId)
     res.status(200).send({ result })
@@ -52,6 +65,7 @@ const updateByIdAsync = async (req: Request, res: Response) => {
     console.log('data', id, data)
     if (!id || !data) {
       res.status(400).send({ message: 'Please fill the id and data!' })
+      return
     }
     const result = await Teacher.findByIdAndUpdate(id, data)
     if (result) {

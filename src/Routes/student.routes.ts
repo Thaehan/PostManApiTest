@@ -13,12 +13,6 @@ const studentRoutes = (app: Express) => {
 
   router.post('/update', studentController.updateByIdAsync)
 
-  // router.get('/', studentController.getManyAsync)
-
-  // router.get('/login', studentController.findOneAsync)
-
-  // router.get('/:id', studentController.getByIdAsync)
-
   app.use('/api/students', router)
 }
 
