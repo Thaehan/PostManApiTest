@@ -1,0 +1,507 @@
+{
+	"info": {
+		"_postman_id": "9879f6ed-a7b3-4427-8731-575629f02c3a",
+		"name": "Testing",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "17944436"
+	},
+	"item": [
+		{
+			"name": "Account",
+			"item": [
+				{
+					"name": "GetAccountById",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/accounts/:id",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"accounts",
+								":id"
+							],
+							"query": [
+								{
+									"key": "id",
+									"value": "sadasd",
+									"disabled": true
+								}
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "6366d41e69a3c773fe7e8842"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GetManyAccount",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/accounts/",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"accounts",
+								""
+							],
+							"query": [
+								{
+									"key": "username",
+									"value": "Thaehan",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "LoginAccount",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/accounts/login?username=Thaehan0611&password=12345678",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"accounts",
+								"login"
+							],
+							"query": [
+								{
+									"key": "username",
+									"value": "Thaehan0611"
+								},
+								{
+									"key": "password",
+									"value": "12345678"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "CreateAccount",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"username\": \"Nguyendang\",\r\n    \"password\": \"12345678\",\r\n    \"role\": \"teacher\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/accounts/",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"accounts",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "UpdateAccount",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"id\": \"6366d41e69a3c773fe7e8842\",\r\n    \"data\": {\r\n        \"username\": \"Thaehan0611\",\r\n        \"password\": \"12345678\"\r\n    }\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/accounts/update",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"accounts",
+								"update"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Student",
+			"item": [
+				{
+					"name": "GetStudentById",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/students/:id",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"students",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "636cd72784b283e83aed7597"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GetManyStudent",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/students/",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"students",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "CreateStudent",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"user_id\": \"6366d41e69a3c773fe7e8842\",\r\n    \"student_id\": \"1902123\",\r\n    \"name\": {\r\n        \"first_name\": \"Dat\",\r\n        \"last_name\": \"Do\"\r\n    },\r\n    \"date_of_birth\": \"2001-11-06T21:22:38.642Z\",\r\n    \"gender\": \"male\",\r\n    \"email\": \"thaehan0611@gmail.com\",\r\n    \"phone_number\": \"0911323794\",\r\n    \"address\": \"74 Xuan Dinh, Bac Tu Liem, Ha Noi\",\r\n    \"academic_year\": 4,\r\n    \"specialization\": \"Computer Science\",\r\n    \"nation\": \"Vietnam\",\r\n    \"joined_class_ids\": []\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/students/",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"students",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "UpdateStudent",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"id\": \"636cd72784b283e83aed7597\",\r\n    \"data\": {\r\n        \"phone_number\": \"0911323774\"\r\n    }\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/students/update",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"students",
+								"update"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Teacher",
+			"item": [
+				{
+					"name": "GetManyTeacher",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/teachers/",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"teachers",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GetTeacherById",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/teachers/:id",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"teachers",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "636f806a1915bb2860d5686c"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "CreateTeacher",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"user_id\": \"636f80591915bb2860d56869\",\r\n    \"teacher_id\": \"0000001\",\r\n    \"name\": {\r\n        \"first_name\": \"Nguyen\",\r\n        \"last_name\": \"Dang\"\r\n    },\r\n    \"date_of_birth\": \"2000-11-05T21:22:38.642Z\",\r\n    \"gender\": \"male\",\r\n    \"email\": \"nguyendan@gmail.com\",\r\n    \"phone_number\": \"0911323111\",\r\n    \"address\": \"Xuan Thuy, Cau Giay, Ha Noi\",\r\n    \"nation\": \"Vietnam\",\r\n    \"joined_date\": \"2022-11-05T21:22:38.642Z\",\r\n    \"main_courses\": [],\r\n    \"teaching_class_ids\": []\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/teachers/",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"teachers",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "UpdateTeacher",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"id\": \"636f806a1915bb2860d5686c\",\r\n    \"data\": {\r\n        \"phone_number\": \"0911323774\"\r\n    }\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/teachers/update",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"teachers",
+								"update"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Class",
+			"item": [
+				{
+					"name": "GetManyClass",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/classes/",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"classes",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GetClassById",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/classes/:id",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"classes",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "636f80c21915bb2860d56877"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "CreateClass",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"class_id\": \"UET 2211 22\",\r\n    \"class_name\": \"Cơ sở dữ liệu 22\",\r\n    \"teacher_id\": \"636f806a1915bb2860d5686c\",\r\n    \"class_detail\": [],\r\n    \"to_do_list\": []\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/classes/",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"classes",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "UpdateClass",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"id\": \"636f80c21915bb2860d56877\",\r\n    \"data\": {\r\n        \"to_do_list\": \"Hoàn thiện bài tập lớn!\"\r\n    }\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/classes/update",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"classes",
+								"update"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}

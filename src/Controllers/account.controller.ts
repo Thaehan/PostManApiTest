@@ -130,6 +130,9 @@ const updateAsync = async (req: Request, res: Response) => {
     if (!id || !data) {
       res.status(400).send({ message: 'Please fill the id and data!' })
     }
+    if (data.password && data.password.length != 0) {
+      data.password = await hash(data.password, hashSaltRound)
+    }
     const result = await Account.findByIdAndUpdate(id, data)
     if (result) {
       res.status(200).send({ message: 'Account updated' })
