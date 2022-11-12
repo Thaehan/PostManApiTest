@@ -2,8 +2,8 @@
 Testing project
 
 # Cách cài đặt môi trường để test 🔥:
-- Cài đặt mongodb trên máy tính qua trang chủ [Mongodb] (https://www.mongodb.com/try/download/community).
-- Cài đặt Nodejs trên máy tính qua trang chủ [Nodejs] (https://nodejs.org/en/).
+- Cài đặt mongodb trên máy tính qua trang chủ [Mongodb](https://www.mongodb.com/try/download/community).
+- Cài đặt Nodejs trên máy tính qua trang chủ [Nodejs](https://nodejs.org/en/).
 - Clone code của ứng dụng này về.
 - Mở folder với code vừa tải về bằng CMD hoặc PowerShell và gõ lệnh (npm install / yarn install).
 - Sau khi các module đã được cài đặt, ta sẽ sử dụng lệnh (npm start / yarn start) rồi bắt đầu quá trình test bằng Postman.
