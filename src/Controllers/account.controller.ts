@@ -15,6 +15,20 @@ const createAsync = async (req: Request, res: Response) => {
       return
     }
 
+    if (username.length < 6 || username.length > 16) {
+      res
+        .status(400)
+        .send({ message: 'Username length must be between 6 and 16!' })
+      return
+    }
+
+    if (password.length < 8 || password.length > 16) {
+      res
+        .status(400)
+        .send({ message: 'Password length must be between 6 and 16!' })
+      return
+    }
+
     const existAccount = await Account.find({ username: username })
     if (existAccount.length != 0) {
       res.status(400).send({ message: 'Username is exist!' })
