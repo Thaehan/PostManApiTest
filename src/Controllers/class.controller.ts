@@ -23,7 +23,7 @@ const createAsync = async (req: Request, res: Response) => {
     res.status(200).send({ result: resData.toJSON() })
   } catch (error) {
     console.error(error)
-    res.status(400).send({ message: 'Missing student information!' })
+    res.status(400).send({ message: 'Missing class information!' })
   }
 }
 
@@ -40,13 +40,13 @@ const getManyAsync = async (req: Request, res: Response) => {
 
 const getByIdAsync = async (req: Request, res: Response) => {
   try {
-    const studentId = req.params.id
+    const classId = req.params.id
     console.log('get by id')
-    if (!studentId) {
+    if (!classId) {
       res.status(400).send({ message: 'Cần nhập vào id của Class!' })
       return
     }
-    const result = await Class.findById(studentId)
+    const result = await Class.findById(classId)
     res.status(200).send({ result })
   } catch (error) {
     res.status(400).send({ message: error })
@@ -65,7 +65,7 @@ const updateByIdAsync = async (req: Request, res: Response) => {
     if (result) {
       res.status(200).send({ message: 'Class updated' })
     } else {
-      res.status(400).send({ error: 'Error when update student!' })
+      res.status(400).send({ error: 'Error when update class!' })
     }
   } catch (error) {
     res.status(400).send({ message: error })
