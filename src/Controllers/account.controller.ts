@@ -11,6 +11,7 @@ const createAsync = async (req: Request, res: Response) => {
   try {
     const { username, password, role } = req.body
     if (!username || !password || !role) {
+      res.status(400).send({ message: 'Please fill all the information!' })
       return
     }
 
@@ -26,9 +27,8 @@ const createAsync = async (req: Request, res: Response) => {
       role: req.body.role,
     }
     const newAccount = new Account(data)
-
-    await newAccount.save()
-    res.status(200).send({ result: data })
+    const result = await newAccount.save()
+    res.status(200).send({ result })
   } catch (error) {
     res.status(400).send({ message: error })
   }

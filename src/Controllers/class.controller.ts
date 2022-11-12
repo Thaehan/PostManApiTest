@@ -8,9 +8,7 @@ const Class = classes
 
 const createAsync = async (req: Request, res: Response) => {
   try {
-    console.log('student1')
     const classData: IClass = req.body
-    console.log('classData ', classData)
 
     const existClass = await Class.find({
       class_id: classData.class_id,
