@@ -30,7 +30,9 @@ const createAsync = async (req: Request, res: Response) => {
 const getManyAsync = async (req: Request, res: Response) => {
   try {
     const query = req.query
-    console.log(query)
+
+    console.log('filter', query)
+
     const result = await Class.find(query)
     res.status(200).send({ result })
   } catch (error) {
