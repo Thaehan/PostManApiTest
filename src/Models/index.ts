@@ -16,7 +16,7 @@ export const students = studentModel.studentModel(mongoose)
 export const teachers = teacherModel.teacherModel(mongoose)
 export const classes = classModel.classModel(mongoose)
 export const notifications = notificationModel.notificationModel(mongoose)
-export const forum = forumModel.forumModel(mongoose)
+export const forums = forumModel.forumModel(mongoose)
 
 export default {
   mongoose: mongoose,
@@ -26,5 +26,5 @@ export default {
   teachers,
   classes,
   notifications,
-  forum,
+  forums,
 }

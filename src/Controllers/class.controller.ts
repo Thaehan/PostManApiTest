@@ -1,10 +1,11 @@
 import { Request, Response } from 'express'
 
 import { hashSaltRound } from '../Config/config'
-import { classes } from '../Models'
+import { accounts, classes } from '../Models'
 import { IClass } from '../Types'
 
 const Class = classes
+const Account = accounts
 
 const createAsync = async (req: Request, res: Response) => {
   try {
@@ -16,14 +17,19 @@ const createAsync = async (req: Request, res: Response) => {
     if (existClass.length != 0) {
       res.status(400).send({ message: 'Class Id is exist!' })
       return
+    } else {
+      const existTeacher = await Account.findById(classData.teacher_id)
+      if (existTeacher) {
+        const newClass = new Class(classData)
+        const result = await newClass.save()
+        res.status(200).send({ result: result })
+      } else {
+        res.status(400).send({ message: 'Teacher id is not exist!' })
+      }
     }
-
-    const newClass = new Class(classData)
-    const resData = await newClass.save()
-    res.status(200).send({ result: resData.toJSON() })
   } catch (error) {
     console.error(error)
-    res.status(400).send({ message: 'Missing class information!' })
+    res.status(400).send({ message: 'Missing information' })
   }
 }
 
@@ -62,12 +68,13 @@ const updateByIdAsync = async (req: Request, res: Response) => {
     if (!id || !data) {
       res.status(400).send({ message: 'Please fill the id and data!' })
       return
-    }
-    const result = await Class.findByIdAndUpdate(id, data)
-    if (result) {
-      res.status(200).send({ message: 'Class updated' })
     } else {
-      res.status(400).send({ error: 'Error when update class!' })
+      const result = await Class.findByIdAndUpdate(id, data)
+      if (result) {
+        res.status(200).send({ message: 'Class updated' })
+      } else {
+        res.status(400).send({ message: 'Error when update class!' })
+      }
     }
   } catch (error) {
     res.status(400).send({ message: error })

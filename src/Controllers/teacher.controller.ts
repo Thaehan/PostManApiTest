@@ -1,32 +1,46 @@
 import { Request, Response } from 'express'
 
 import { hashSaltRound } from '../Config/config'
-import { teachers } from '../Models'
+import { accounts, teachers } from '../Models'
 import { ITeacher } from '../Types'
 
 const Teacher = teachers
+const Account = accounts
 
 const createAsync = async (req: Request, res: Response) => {
   try {
     const teacherData: ITeacher = req.body
     console.log('teacherData ', teacherData)
 
-    const existTeacher = await Teacher.find().or([
-      {
-        teacher_id: teacherData.teacher_id,
-      },
-      { user_id: teacherData.user_id },
-    ])
-    if (existTeacher.length != 0) {
-      res
-        .status(400)
-        .send({ message: 'Teacher is exist or user has a teacher account!' })
+    const existAccount = await Account.findById(teacherData.user_id)
+    if (!existAccount) {
+      res.status(404).send({ message: 'User_id is not exist!' })
       return
+    } else {
+      if (existAccount.role != 'teacher') {
+        res.status(400).send({ message: 'Account role is not match!' })
+        return
+      } else {
+        const existTeacher = await Teacher.find().or([
+          {
+            teacher_id: teacherData.teacher_id,
+          },
+          { user_id: teacherData.user_id },
+        ])
+        if (existTeacher.length != 0) {
+          res
+            .status(400)
+            .send({
+              message: 'Teacher is exist or user has a teacher account!',
+            })
+          return
+        } else {
+          const newTeacher = new Teacher(teacherData)
+          const resData = await newTeacher.save()
+          res.status(200).send({ result: resData.toJSON() })
+        }
+      }
     }
-
-    const newTeacher = new Teacher(teacherData)
-    const resData = await newTeacher.save()
-    res.status(200).send({ result: resData.toJSON() })
   } catch (error) {
     console.error(error)
     res.status(400).send({ message: 'Missing student information!' })
@@ -66,12 +80,13 @@ const updateByIdAsync = async (req: Request, res: Response) => {
     if (!id || !data) {
       res.status(400).send({ message: 'Please fill the id and data!' })
       return
-    }
-    const result = await Teacher.findByIdAndUpdate(id, data)
-    if (result) {
-      res.status(200).send({ message: 'Teacher updated' })
     } else {
-      res.status(400).send({ error: 'Error when update student!' })
+      const result = await Teacher.findByIdAndUpdate(id, data)
+      if (result) {
+        res.status(200).send({ message: 'Teacher updated' })
+      } else {
+        res.status(400).send({ message: 'Error when update student!' })
+      }
     }
   } catch (error) {
     res.status(400).send({ message: error })
